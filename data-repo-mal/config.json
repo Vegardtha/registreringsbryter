@@ -1,0 +1,9 @@
+{
+  "autoAv": "20:00",
+  "knapper": {
+    "1": [{ "fra": "2026-11-24", "prosjekt": "Prosjekt A", "farge": "#e5484d" }],
+    "2": [{ "fra": "2026-11-24", "prosjekt": "Prosjekt B", "farge": "#30a46c" }],
+    "3": [{ "fra": "2026-11-24", "prosjekt": "Prosjekt C", "farge": "#f5a524" }],
+    "4": [{ "fra": "2026-11-24", "prosjekt": "Internt", "farge": "#3e63dd" }]
+  }
+}
