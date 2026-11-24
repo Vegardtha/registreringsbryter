@@ -6,7 +6,7 @@
 
 ## 1. Hva boksen er
 
-En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-printet hette på Ø 24 mm** som sitter over en liten 7 mm trykknapp. Over hver knapp sitter en **10 mm LED**. Inni ligger en **ESP32-C3 SuperMini**, og strømmen kommer via USB-C bak. Brukeren trykker på knappene mange ganger om dagen, så boksen må stå stødig og ikke gli, og knappene må være store og lette å treffe.
+En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-printet hette på Ø 24 mm** som sitter over en trykknapp med 10 mm gjenge. Over hver knapp sitter en **10 mm LED**. Inni ligger en **ESP32-C3 SuperMini**, og strømmen kommer via USB-C bak. Brukeren trykker på knappene mange ganger om dagen, så boksen må stå stødig og ikke gli, og knappene må være store og lette å treffe.
 
 ## 2. Hovedform
 
@@ -37,11 +37,11 @@ En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-prin
 ### 3.1 Trykknapp (PBS-110-type, momentan) ×4
 | Mål | Verdi |
 |---|---|
-| Gjenge | M7 → **hull Ø 7,2** |
+| Gjenge | ca. 10 mm → **hull Ø 10,2** (testet: passer) |
 | Montering | Huset sitter **under** panelet. Gjengen går opp gjennom hullet, og **mutteren skrus på fra oversiden**. |
-| Mutter | 10 mm over flatene (ca. Ø 11,5 over hjørnene), ca. 2 mm tykk **(mål selv)** |
+| Mutter | ca. Ø 15 over hjørnene, ca. 2 mm tykk **(mål selv)** |
 | Hus under panelet | Ø 9–10, lengde ca. 13 + 5 mm loddebein = **ca. 20 mm** fri høyde under panelet **(mål selv)** |
-| Original knapphette (blå) | **Ø 6,0** **(mål selv)**. Toppen står ca. **9 mm over panelet** **(mål selv)**. |
+| Original knapphette (blå) | **Ø 8,5** **(mål selv)**. Toppen står ca. **9 mm over panelet** **(mål selv)**. |
 | Vandring | Ca. **2 mm** fra hvile til klikk **(mål selv)** |
 | Gjengelengde | ca. 7 mm. Panelet må være ≤ 3 mm, fordi mutteren også skal ha plass. |
 
@@ -81,7 +81,7 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 - **Skjørtet:** i hvile skal det være `vandring + 1,0` mm fra skjørtets underkant ned til panelet, så hetten ikke bunner ut før knappen klikker.
 - **Hylsa:** i hvile skal det være minst `vandring + 0,5` mm fra hylsas underkant ned til toppen av mutteren.
 - **Overlapp:** i hvile skal skjørtet og føringsringen overlappe minst **3 mm** i høyden, så hetten ikke vipper.
-- Skjørtets innside må gå klar av mutteren (Ø 11,5 over hjørnene) med god margin.
+- Skjørtets innside må gå klar av mutteren (Ø 15 over hjørnene) med god margin.
 - Hetten printes med toppen ned. Hylsa og skjørtet står da rett opp, og det trengs ingen støtte. Ytterkanten på toppen får en fas på 0,6 mm.
 - Lag en **testbit** (`del = "hette_test"`): en flat plate på 40 × 40 × 2,4 mm med én føringsring og ett knappehull. Da kan brukeren sjekke passform, vandring og klikk med én hette før hele lokket printes.
 
@@ -90,13 +90,14 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 |---|---|
 | Kropp | Ø 10,0 |
 | Krage | **Ø 11,0** (bredeste punkt), ca. 1,5 mm tykk **(mål selv)** |
-| Hull | **Ø 10,2** (presspasning, LED-en trykkes inn fra innsiden) |
+| Hull | **Ø 10,4 med 6 ribber** som går inn til Ø 9,9. Ribbene klemmes litt når LED-en trykkes inn, og holder den stram og sentrert. |
 | Høyde | ca. 13,8 mm fra underkant krage til toppen av kuppelen **(mål selv)** |
 
 - LED-en trykkes inn fra innsiden. Kroppen stikker opp gjennom panelet, og kragen på Ø 11 stopper mot innsiden. Over panelet stikker LED-en ca. 11 mm opp. Under panelet er det bare beina.
 - Lag en **Ø 11,6 × 1,0 mm forsenkning på innsiden** rundt LED-hullet, slik at kragen ligger plant og LED-en stikker litt lenger ut.
-- Parametre: `led_hull = 10.2`, `led_krage = 11.0`, `led_krage_klaring = 0.6`. LED-en skal sitte stramt. Er hullet for trangt, øker brukeren `led_hull` med 0,1 mm og printer en ny test.
-- Valgfritt: en **testbit** (`del = "led_test"`), en liten plate på 30 × 15 × 2,4 mm med tre hull på Ø 10,0, 10,2 og 10,4, så brukeren kan finne riktig passform før hele lokket printes.
+- **Forsenkningen for kragen er D-formet**, med en flat side som passer den flate siden på kragen (`led_krage_flat`). Da kan ikke LED-en vris, og minus (katode, den flate siden) peker alltid bakover (`led_flat_retning = 90`).
+- Parametre: `led_hull = 10.4`, `led_ribbe_d = 9.9`, `led_ribber = 6`, `led_krage = 11.0`, `led_krage_flat = 10.0`, `led_krage_klaring = 0.4`. Sett `led_ribbe_d = 0` for et vanlig rundt hull.
+- **Testbit** (`del = "led_test"`): en plate med fire varianter: rundt hull på 10,0 og 10,1, og ribbehull med ribbetupper på 10,0 og 9,8 (merket R10.0 og R9.8). Alle har D-formet forsenkning for kragen på undersiden. Første test viste at et rundt hull på 10,0 var nærmest, men ikke helt riktig.
 
 ### 3.4 ESP32-C3 SuperMini ×1
 | Mål | Verdi |
@@ -122,7 +123,7 @@ Sett fra brukerens side, der fronten er nærmest:
 ```
   bak (høy)
  ┌────────────────────────────────────────────────────┐
- │      ●             ●             ●             ●     │  ← LED-er (Ø 10,2)
+ │      ●             ●             ●             ●     │  ← LED-er (Ø 10,4 med ribber)
  │                                                    │
  │    ╭───╮         ╭───╮         ╭───╮         ╭───╮   │
  │    │ 1 │         │ 2 │         │ 3 │         │ 4 │   │  ← store hetter (Ø 24) i føringsringer
@@ -179,7 +180,7 @@ Alle avstander er målt langs panelet fra frontkanten, til senter av elementet.
 
 - **PLA** for alle delene: 0,2 mm lag, 3 perimetre, 15 % fyll, **ingen støtte**
 - Ca. 210 °C dyse, 60 °C plate og full kjølevifte (vanlige PLA-innstillinger)
-- PLA er stivt og gir lite etter, så presspasningene (`hylse_klem`, `led_hull`) bør testes med testbitene før alt printes
+- PLA er stivt og gir lite etter, så presspasningene (`hylse_klem`, `led_ribbe_d`) bør testes med testbitene før alt printes
 - Ikke la boksen stå i direkte sol eller i en varm bil. PLA blir mykt rundt 55 °C.
 - `kasse`: bunnen ned. `lokk`: toppen opp. `hette`: toppen ned.
 - Hettene kan gjerne printes i samme farge som LED-en over dem.

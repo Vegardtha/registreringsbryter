@@ -31,14 +31,14 @@ skrue_hull_lokk   = 3.4;
 stolpe_d          = 7;
 
 /* [Trykknapp – MÅL SELV] */
-knapp_hull        = 7.2;  // M7-gjenge
-blaa_hette_d      = 6.0;  // diameter på den blå knapphetten (mål selv)
+knapp_hull        = 10.2; // gjengen er ca. 10 mm (testet: 10,2 passer)
+blaa_hette_d      = 8.5;  // diameter på den blå knapphetten (mål selv)
 blaa_hette_hoyde  = 9.0;  // toppen av blå hette over panelet, med mutter på (mål selv)
 vandring          = 2.0;  // hvor langt knappen går før den klikker (mål selv)
 mutter_topp       = 2.5;  // toppen av mutter (+ evt. skive) over panelet (mål selv)
-mutter_d          = 11.5; // mutteren over hjørnene
+mutter_d          = 15;   // mutteren over hjørnene (mål selv)
 knapp_hus_lengde  = 20;   // hus + loddebein under panelet (mål selv)
-knapp_hus_d       = 10;
+knapp_hus_d       = 13;   // (mål selv)
 
 /* [Stor hette] */
 hette_d     = 24;   // øk denne og knapp_avstand like mye for større knapper
@@ -56,10 +56,15 @@ foring_vegg    = 1.6;
 foring_klaring = 0.3;
 
 /* [LED 10 mm – MÅL SELV] */
-led_hull          = 10.2;
-led_krage         = 11.0;
-led_krage_klaring = 0.6;
-led_krage_dybde   = 1.0;  // forsenkning på undersiden
+led_kropp         = 10.0; // diameter på LED-kroppen
+led_hull          = 10.4; // hullet før ribbene
+led_ribbe_d       = 9.9;  // avstand mellom ribbetuppene; ribbene klemmer og sentrerer LED-en. 0 = ingen ribber
+led_ribber        = 6;
+led_krage         = 11.0; // kragen på det bredeste (mål selv)
+led_krage_flat    = 10.0; // kragen målt fra den flate siden og over (mål selv). Sett lik led_krage hvis kragen er rund
+led_flat_retning  = 90;   // retning på den flate siden (minus/katode): 90 = bakover
+led_krage_klaring = 0.4;
+led_krage_dybde   = 1.0;  // forsenkning på undersiden som kragen ligger i
 led_krage_tykk    = 1.5;  // (mål selv)
 led_hoyde         = 13.8; // fra underkant krage til topp kuppel (mål selv)
 
@@ -249,6 +254,27 @@ module foringsring() {
     }
 }
 
+// Hull for LED-en: rundt hull med smale ribber som klemmes litt sammen når LED-en
+// trykkes inn. Det gir stram og sentrert passform selv om printeren bommer litt.
+module led_hull_form(hull_d, ribbe_d, h) {
+    difference() {
+        cylinder(d = hull_d, h = h);
+        if (ribbe_d > 0 && ribbe_d < hull_d)
+            for (i = [0:led_ribber - 1]) rotate(i * 360 / led_ribber)
+                translate([ribbe_d / 2, -0.4, -1]) cube([(hull_d - ribbe_d) / 2 + 0.5, 0.8, h + 2]);
+    }
+}
+
+// Forsenkning for LED-kragen, med den flate siden, så LED-en ikke kan vris og minus alltid peker samme vei.
+module krage_form() {
+    r = (led_krage + led_krage_klaring) / 2;
+    f = max(led_krage_flat - led_krage / 2, led_kropp / 2) + led_krage_klaring / 2;
+    rotate(led_flat_retning) intersection() {
+        circle(r = r);
+        translate([-r - 1, -r - 1]) square([r + 1 + f, 2 * r + 2]);
+    }
+}
+
 module lokk() {
     difference() {
         union() {
@@ -263,9 +289,8 @@ module lokk() {
             // knapp
             translate([x, knapp_pos, -lokk_tykkelse - 1]) cylinder(d = knapp_hull, h = lokk_tykkelse + 2);
             // LED + forsenkning for kragen på undersiden
-            translate([x, led_pos, -lokk_tykkelse - 1]) cylinder(d = led_hull, h = lokk_tykkelse + 2);
-            translate([x, led_pos, -lokk_tykkelse - 1])
-                cylinder(d = led_krage + led_krage_klaring, h = 1 + led_krage_dybde);
+            translate([x, led_pos, -lokk_tykkelse - 1]) led_hull_form(led_hull, led_ribbe_d, lokk_tykkelse + 2);
+            translate([x, led_pos, -lokk_tykkelse - 1]) linear_extrude(1 + led_krage_dybde) krage_form();
             // etikettfelt
             translate([x - etikett_b / 2, etikett_pos - etikett_h / 2, -etikett_dybde]) cube([etikett_b, etikett_h, 1]);
             // nummer
@@ -326,15 +351,20 @@ module hette_test() {
     }
 }
 
+// Fire varianter: [hull, ribbetupper, etikett]. Velg den som sitter best og sett
+// led_hull / led_ribbe_d til de verdiene. Kragen ligger i forsenkningen på undersiden.
+led_test_varianter = [[10.0, 0, "10.0"], [10.1, 0, "10.1"], [10.4, 10.0, "R10.0"], [10.4, 9.8, "R9.8"]];
+
 module led_test() {
-    hull_d = [led_hull - 0.2, led_hull, led_hull + 0.2];
+    n = len(led_test_varianter);
     difference() {
-        cube([46, 20, lokk_tykkelse]);
-        for (i = [0:2]) {
-            translate([8 + i * 15, 10.5, -1]) cylinder(d = hull_d[i], h = lokk_tykkelse + 2);
-            translate([8 + i * 15, 10.5, -eps]) cylinder(d = led_krage + led_krage_klaring, h = led_krage_dybde + eps);
-            translate([8 + i * 15, 1.0, lokk_tykkelse - 0.5])
-                linear_extrude(1) text(str(hull_d[i]), size = 2.5, halign = "center", font = "Liberation Sans");
+        cube([6 + n * 16, 22, lokk_tykkelse]);
+        for (i = [0:n - 1]) {
+            v = led_test_varianter[i];
+            translate([11 + i * 16, 12, -1]) led_hull_form(v[0], v[1], lokk_tykkelse + 2);
+            translate([11 + i * 16, 12, -eps]) linear_extrude(led_krage_dybde + eps) krage_form();
+            translate([11 + i * 16, 1.0, lokk_tykkelse - 0.5])
+                linear_extrude(1) text(v[2], size = 2.6, halign = "center", font = "Liberation Sans:style=Bold");
         }
     }
 }
