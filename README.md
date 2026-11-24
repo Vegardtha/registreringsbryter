@@ -19,7 +19,7 @@ En boks med fire knapper for timeføring. Trykk på en knapp for å starte tiden
 | `firmware/` | Koden til ESP32-C3. Fungerer med Arduino IDE eller PlatformIO. |
 | `web/` | Nettsiden, én enkelt HTML-fil |
 | `data-repo-mal/` | Startfiler til data-repoet |
-| `kabinett/` | Spesifikasjon for 3D-printet boks, laget for at Claude skal kunne tegne den |
+| `kabinett/` | 3D-printet boks: OpenSCAD-modell (`kabinett.scad`), ferdige STL-filer og spesifikasjon (`CAD-SPEK.md`) |
 
 ---
 

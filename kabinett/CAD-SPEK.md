@@ -13,7 +13,7 @@ En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-prin
 - **Kile med skrå topp.** Fronten er lav og baksiden høy, så panelet heller mot brukeren.
 - **Tre slags deler:**
   1. **`kasse`:** bunn og fire vegger, åpen oppe. Printes med bunnen ned, uten støtte.
-  2. **`lokk`:** det skrå frontpanelet med hull for knapper og LED-er, og føringsringer for hettene. Printes med utsiden ned mot printplata, så overflaten blir pen og hullene runde. Føringsringene står da opp fra plata, uten overheng.
+  2. **`lokk`:** det skrå frontpanelet med hull for knapper og LED-er, og føringsringer for hettene. Printes med **toppen opp**, slik at føringsringene står opp uten overheng. Undersiden er flat bortsett fra forsenkningene for LED-kragene. Bruk gjerne «ironing» for pen toppflate.
   3. **`hette`** ×4: de store knappene. Printes med toppen ned.
 - Lokket skrues fast med **4 × M3-skruer** i hjørnestolper i kassa. Bruk hull på Ø 2,6 mm for selvgjengende skruer, eller Ø 4,0 mm for innpressede gjengeinnsatser (parameter).
 - Ytre hjørner avrundes med radius 4 mm.
@@ -66,7 +66,7 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 |---|---|---|
 | `hette_diameter` | 24 | Ytre diameter. Kan økes; da må `knapp_avstand` økes like mye. |
 | `hette_topp` | 2.4 | Tykkelse på toppen |
-| `hette_grop` | 0.8 | Svak, sfærisk grop i toppen for fingeren |
+| `hette_grop` | 0 | Sfærisk fingergrop i toppen. Står på 0 (flat), fordi hetten printes med toppen ned og en grop da ville henge i lufta. |
 | `hette_vegg` | 1.6 | Skjørtets veggtykkelse |
 | `hylse_indre` | 6.0 − 0.1 | Presspasning over den blå hetten. Bruk `blaa_hette_diameter − 0.1`. |
 | `hylse_vegg` | 1.6 | |
@@ -91,9 +91,9 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 | Kropp | Ø 10,0 |
 | Krage | **Ø 11,0** (bredeste punkt), ca. 1,5 mm tykk **(mål selv)** |
 | Hull | **Ø 10,2** (presspasning, LED-en trykkes inn fra innsiden) |
-| Lengde under panelet | ca. 14 mm + bein **(mål selv)** |
+| Høyde | ca. 13,8 mm fra underkant krage til toppen av kuppelen **(mål selv)** |
 
-- LED-en trykkes inn fra innsiden. Kroppen stikker opp gjennom panelet, og kragen på Ø 11 stopper mot innsiden.
+- LED-en trykkes inn fra innsiden. Kroppen stikker opp gjennom panelet, og kragen på Ø 11 stopper mot innsiden. Over panelet stikker LED-en ca. 11 mm opp. Under panelet er det bare beina.
 - Lag en **Ø 11,6 × 1,0 mm forsenkning på innsiden** rundt LED-hullet, slik at kragen ligger plant og LED-en stikker litt lenger ut.
 - Parametre: `led_hull = 10.2`, `led_krage = 11.0`, `led_krage_klaring = 0.6`. LED-en skal sitte stramt. Er hullet for trangt, øker brukeren `led_hull` med 0,1 mm og printer en ny test.
 - Valgfritt: en **testbit** (`del = "led_test"`), en liten plate på 30 × 15 × 2,4 mm med tre hull på Ø 10,0, 10,2 og 10,4, så brukeren kan finne riktig passform før hele lokket printes.
@@ -145,7 +145,7 @@ Alle avstander er målt langs panelet fra frontkanten, til senter av elementet.
 - Knapperaden er sentrert i bredden.
 - **Føringsringene** er en del av lokket. Innvendig diameter er `hette_diameter + 2 × foring_klaring`.
 - Ingen hull eller skruestolper må komme i konflikt med føringsringer, knappenes hus eller LED-er. På undersiden må det også være plass til LED-kragen (Ø 11,6).
-- Lokket ligger **innfelt** i en 1 mm kant (falsen) øverst i kassa, eller med en innvendig leppe på 1,5 mm som griper ned i kassa. Det hindrer at lokket forskyver seg.
+- Lokket ligger oppå veggene og dekker hele fotavtrykket. De fire skruene holder det på plass. Det er ingen leppe på undersiden, fordi lokket da ikke kunne printes flatt med toppen opp.
 
 ## 5. Kassa
 
@@ -178,7 +178,7 @@ Alle avstander er målt langs panelet fra frontkanten, til senter av elementet.
 ## 7. Printinnstillinger (skriv dem inn i kommentar øverst i .scad-fila)
 
 - PLA eller PETG, 0,2 mm lag, 3 perimetre, 15 % fyll, **ingen støtte**
-- `kasse`: bunnen ned. `lokk`: utsiden ned. `hette`: toppen ned.
+- `kasse`: bunnen ned. `lokk`: toppen opp. `hette`: toppen ned.
 - Hettene kan gjerne printes i samme farge som LED-en over dem.
 - **Rekkefølge:** print `hette_test` og en hette først. Når passform og klikk er riktig, printer du lokket og så kassa.
 
@@ -187,7 +187,7 @@ Alle avstander er målt langs panelet fra frontkanten, til senter av elementet.
 - [ ] Det er **≥ 22 mm** fri høyde under hver knapp, også den fremste.
 - [ ] Lokket er **≤ 3,0 mm** tykt der knappene sitter.
 - [ ] Klaringene for hetten fra 3.2 er oppfylt (skjørt–panel ≥ vandring + 1, hylse–mutter ≥ vandring + 0,5, overlapp ≥ 3), og verdiene skrives ut med `echo()`.
-- [ ] Det er ingen kollisjon mellom føringsringer, hetter, knapper, muttere, LED-er (krage Ø 11,6, ca. 14 mm lange under panelet), skruestolper og ESP-holderen. Kontroller med dummy-komponenter i `samlet()`.
+- [ ] Det er ingen kollisjon mellom føringsringer, hetter, knapper, muttere, LED-er (krage Ø 11,6), skruestolper og ESP-holderen. Kontroller med dummy-komponenter i `samlet()`.
 - [ ] USB-C-hullet ligger midt på kontakten, og kortkanten ligger inntil veggen.
 - [ ] Antennen på ESP-en er ≥ 10 mm fra knappehusene.
 - [ ] Ingen overheng over 45° i printretningen, så det trengs ingen støtte.
