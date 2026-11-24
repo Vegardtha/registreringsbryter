@@ -31,14 +31,14 @@ skrue_hull_lokk   = 3.4;
 stolpe_d          = 7;
 
 /* [Trykknapp – MÅL SELV] */
-knapp_hull        = 10.2; // gjengen er ca. 10 mm (testet: 10,2 passer)
-blaa_hette_d      = 8.5;  // diameter på den blå knapphetten (mål selv)
+knapp_hull        = 7.2;  // M7-gjenge (testet: passer)
+blaa_hette_d      = 6.0;  // diameter på den blå knapphetten (mål selv)
 blaa_hette_hoyde  = 9.0;  // toppen av blå hette over panelet, med mutter på (mål selv)
 vandring          = 2.0;  // hvor langt knappen går før den klikker (mål selv)
 mutter_topp       = 2.5;  // toppen av mutter (+ evt. skive) over panelet (mål selv)
-mutter_d          = 15;   // mutteren over hjørnene (mål selv)
+mutter_d          = 11.5; // mutteren over hjørnene
 knapp_hus_lengde  = 20;   // hus + loddebein under panelet (mål selv)
-knapp_hus_d       = 13;   // (mål selv)
+knapp_hus_d       = 10;
 
 /* [Stor hette] */
 hette_d     = 24;   // øk denne og knapp_avstand like mye for større knapper

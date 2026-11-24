@@ -6,7 +6,7 @@
 
 ## 1. Hva boksen er
 
-En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-printet hette på Ø 24 mm** som sitter over en trykknapp med 10 mm gjenge. Over hver knapp sitter en **10 mm LED**. Inni ligger en **ESP32-C3 SuperMini**, og strømmen kommer via USB-C bak. Brukeren trykker på knappene mange ganger om dagen, så boksen må stå stødig og ikke gli, og knappene må være store og lette å treffe.
+En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-printet hette på Ø 24 mm** som sitter over en liten 7 mm trykknapp. Over hver knapp sitter en **10 mm LED**. Inni ligger en **ESP32-C3 SuperMini**, og strømmen kommer via USB-C bak. Brukeren trykker på knappene mange ganger om dagen, så boksen må stå stødig og ikke gli, og knappene må være store og lette å treffe.
 
 ## 2. Hovedform
 
@@ -37,11 +37,11 @@ En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-prin
 ### 3.1 Trykknapp (PBS-110-type, momentan) ×4
 | Mål | Verdi |
 |---|---|
-| Gjenge | ca. 10 mm → **hull Ø 10,2** (testet: passer) |
+| Gjenge | M7 → **hull Ø 7,2** (testet: passer) |
 | Montering | Huset sitter **under** panelet. Gjengen går opp gjennom hullet, og **mutteren skrus på fra oversiden**. |
-| Mutter | ca. Ø 15 over hjørnene, ca. 2 mm tykk **(mål selv)** |
+| Mutter | 10 mm over flatene (ca. Ø 11,5 over hjørnene), ca. 2 mm tykk **(mål selv)** |
 | Hus under panelet | Ø 9–10, lengde ca. 13 + 5 mm loddebein = **ca. 20 mm** fri høyde under panelet **(mål selv)** |
-| Original knapphette (blå) | **Ø 8,5** **(mål selv)**. Toppen står ca. **9 mm over panelet** **(mål selv)**. |
+| Original knapphette (blå) | **Ø 6,0** **(mål selv)**. Toppen står ca. **9 mm over panelet** **(mål selv)**. |
 | Vandring | Ca. **2 mm** fra hvile til klikk **(mål selv)** |
 | Gjengelengde | ca. 7 mm. Panelet må være ≤ 3 mm, fordi mutteren også skal ha plass. |
 
@@ -81,7 +81,7 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 - **Skjørtet:** i hvile skal det være `vandring + 1,0` mm fra skjørtets underkant ned til panelet, så hetten ikke bunner ut før knappen klikker.
 - **Hylsa:** i hvile skal det være minst `vandring + 0,5` mm fra hylsas underkant ned til toppen av mutteren.
 - **Overlapp:** i hvile skal skjørtet og føringsringen overlappe minst **3 mm** i høyden, så hetten ikke vipper.
-- Skjørtets innside må gå klar av mutteren (Ø 15 over hjørnene) med god margin.
+- Skjørtets innside må gå klar av mutteren (Ø 11,5 over hjørnene) med god margin.
 - Hetten printes med toppen ned. Hylsa og skjørtet står da rett opp, og det trengs ingen støtte. Ytterkanten på toppen får en fas på 0,6 mm.
 - Lag en **testbit** (`del = "hette_test"`): en flat plate på 40 × 40 × 2,4 mm med én føringsring og ett knappehull. Da kan brukeren sjekke passform, vandring og klikk med én hette før hele lokket printes.
 
