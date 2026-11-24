@@ -41,7 +41,7 @@ En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-prin
 | Montering | Huset sitter **under** panelet. Gjengen går opp gjennom hullet, og **mutteren skrus på fra oversiden**. |
 | Mutter | 10 mm over flatene (ca. Ø 11,5 over hjørnene), ca. 2 mm tykk **(mål selv)** |
 | Hus under panelet | Ø 9–10, lengde ca. 13 + 5 mm loddebein = **ca. 20 mm** fri høyde under panelet **(mål selv)** |
-| Original knapphette (blå) | **Ø 6,0** **(mål selv)**. Toppen står ca. **9 mm over panelet** **(mål selv)**. |
+| Original knapphette (blå) | **Ø 6,9** (målt). Toppen står ca. **9 mm over panelet** **(mål selv)**. |
 | Vandring | Ca. **2 mm** fra hvile til klikk **(mål selv)** |
 | Gjengelengde | ca. 7 mm. Panelet må være ≤ 3 mm, fordi mutteren også skal ha plass. |
 
@@ -68,7 +68,7 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 | `hette_topp` | 2.4 | Tykkelse på toppen |
 | `hette_grop` | 0 | Sfærisk fingergrop i toppen. Står på 0 (flat), fordi hetten printes med toppen ned og en grop da ville henge i lufta. |
 | `hette_vegg` | 1.6 | Skjørtets veggtykkelse |
-| `hylse_indre` | 6.0 − 0.1 | Presspasning over den blå hetten. Bruk `blaa_hette_diameter − 0.1`. |
+| `hylse_indre` | 7.0 | Den blå hetten er målt til 6,9 mm. Hylsa er `blaa_hette_d + hylse_tillegg` = 6,9 + 0,1. |
 | `hylse_vegg` | 1.6 | |
 | `hylse_dybde` | 4.0 | Hvor langt hylsa tres ned over den blå hetten |
 | `vandring` | 2.0 | **(mål selv)** |
@@ -90,14 +90,14 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 |---|---|
 | Kropp | Ø 10,0 |
 | Krage | **Ø 11,0** (bredeste punkt), ca. 1,5 mm tykk **(mål selv)** |
-| Hull | **Ø 10,4 med 6 ribber** som går inn til Ø 9,9. Ribbene klemmes litt når LED-en trykkes inn, og holder den stram og sentrert. |
+| Hull | **Ø 9,9** (testet: passer best). Ribber kan skrus på med `led_ribbe_d`. |
 | Høyde | ca. 13,8 mm fra underkant krage til toppen av kuppelen **(mål selv)** |
 
 - LED-en trykkes inn fra innsiden. Kroppen stikker opp gjennom panelet, og kragen på Ø 11 stopper mot innsiden. Over panelet stikker LED-en ca. 11 mm opp. Under panelet er det bare beina.
 - Lag en **Ø 11,6 × 1,0 mm forsenkning på innsiden** rundt LED-hullet, slik at kragen ligger plant og LED-en stikker litt lenger ut.
 - **Kragen har to motstående flate sider** og er rund ellers. Den er Ø 11,0 på det bredeste og 10,0 mellom de flate sidene. Forsenkningen har samme form (`led_krage_flat`), så kragen ligger plant og LED-en ikke kan vris. De flate sidene peker mot venstre og høyre (`led_flat_retning = 0`).
-- Parametre: `led_hull = 10.4`, `led_ribbe_d = 9.9`, `led_ribber = 6`, `led_krage = 11.0`, `led_krage_flat = 10.0`, `led_krage_klaring = 0.4`. Sett `led_ribbe_d = 0` for et vanlig rundt hull.
-- **Testbit** (`del = "led_test"`): en plate med fire varianter: rundt hull på 10,0 og 10,1, og ribbehull med ribbetupper på 10,0 og 9,8 (merket R10.0 og R9.8). Alle har forsenkning for kragen på undersiden, med to flate sider. Første test viste at et rundt hull på 10,0 var nærmest, men ikke helt riktig.
+- Parametre: `led_hull = 9.9`, `led_ribbe_d = 0`, `led_ribber = 6`, `led_krage = 11.0`, `led_krage_flat = 10.0`, `led_krage_klaring = 0.4`. Sett `led_ribbe_d` til f.eks. 9,8 og `led_hull` til 10,4 for et hull med ribber.
+- **Testbit** (`del = "led_test"`): en plate med tre runde hull på 9,8, 9,9 og 10,0 mm, alle med forsenkning for kragen på undersiden. Tidligere tester viste at 9,9 passer best.
 
 ### 3.4 ESP32-C3 SuperMini ×1
 | Mål | Verdi |
@@ -123,7 +123,7 @@ Sett fra brukerens side, der fronten er nærmest:
 ```
   bak (høy)
  ┌────────────────────────────────────────────────────┐
- │      ●             ●             ●             ●     │  ← LED-er (Ø 10,4 med ribber)
+ │      ●             ●             ●             ●     │  ← LED-er (Ø 9,9)
  │                                                    │
  │    ╭───╮         ╭───╮         ╭───╮         ╭───╮   │
  │    │ 1 │         │ 2 │         │ 3 │         │ 4 │   │  ← store hetter (Ø 24) i føringsringer
@@ -180,7 +180,7 @@ Alle avstander er målt langs panelet fra frontkanten, til senter av elementet.
 
 - **PLA** for alle delene: 0,2 mm lag, 3 perimetre, 15 % fyll, **ingen støtte**
 - Ca. 210 °C dyse, 60 °C plate og full kjølevifte (vanlige PLA-innstillinger)
-- PLA er stivt og gir lite etter, så presspasningene (`hylse_klem`, `led_ribbe_d`) bør testes med testbitene før alt printes
+- PLA er stivt og gir lite etter, så presspasningene (`hylse_tillegg`, `led_hull`) bør testes med testbitene før alt printes
 - Ikke la boksen stå i direkte sol eller i en varm bil. PLA blir mykt rundt 55 °C.
 - `kasse`: bunnen ned. `lokk`: toppen opp. `hette`: toppen ned.
 - Hettene kan gjerne printes i samme farge som LED-en over dem.

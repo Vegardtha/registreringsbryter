@@ -32,7 +32,7 @@ stolpe_d          = 7;
 
 /* [Trykknapp – MÅL SELV] */
 knapp_hull        = 7.2;  // M7-gjenge (testet: passer)
-blaa_hette_d      = 6.0;  // diameter på den blå knapphetten (mål selv)
+blaa_hette_d      = 6.9;  // diameter på den blå knapphetten (målt: 6,9)
 blaa_hette_hoyde  = 9.0;  // toppen av blå hette over panelet, med mutter på (mål selv)
 vandring          = 2.0;  // hvor langt knappen går før den klikker (mål selv)
 mutter_topp       = 2.5;  // toppen av mutter (+ evt. skive) over panelet (mål selv)
@@ -48,7 +48,7 @@ hette_fas   = 0.6;
 hette_grop  = 0;    // fingergrop i mm. 0 = flat (best når hetten printes med toppen ned)
 hylse_vegg  = 1.6;
 hylse_dybde = 3.5;  // hvor langt hylsa tres ned over den blå hetten
-hylse_klem  = 0.1;  // presspasning; øk hvis hetten sitter løst, senk hvis den ikke går på
+hylse_tillegg = 0.1; // hylsa er så mye større enn den blå hetten. Øk hvis hetten ikke går på, senk hvis den sitter løst
 
 /* [Føringsring] */
 foring_hoyde   = 6.5;
@@ -57,8 +57,8 @@ foring_klaring = 0.3;
 
 /* [LED 10 mm – MÅL SELV] */
 led_kropp         = 10.0; // diameter på LED-kroppen
-led_hull          = 10.4; // hullet før ribbene
-led_ribbe_d       = 9.9;  // avstand mellom ribbetuppene; ribbene klemmer og sentrerer LED-en. 0 = ingen ribber
+led_hull          = 9.9;  // testet: 9,9 passer best
+led_ribbe_d       = 0;    // ribber i hullet (avstand mellom tuppene). 0 = vanlig rundt hull
 led_ribber        = 6;
 led_krage         = 11.0; // kragen på det bredeste (mål selv)
 led_krage_flat    = 10.0; // kragen målt mellom de to flate sidene (mål selv). Sett lik led_krage hvis kragen er helt rund
@@ -115,7 +115,7 @@ usb_z        = bunn_tykkelse + esp_avstand + esp_pcb + usb_over_pcb;
 hette_topp_under = blaa_hette_hoyde;             // hetten hviler på den blå hetten
 hette_toppflate  = hette_topp_under + hette_topp;
 skjort_bunn      = vandring + 1;
-hylse_indre      = blaa_hette_d - hylse_klem;
+hylse_indre      = blaa_hette_d + hylse_tillegg;   // 6,9 + 0,1 = 7,0 mm
 
 vektlomme_pos = [bredde / 2 - 20, vegg + 3];     // 40 × 30, foran på midten
 vektlomme_mal = [40, 30, 6];
@@ -354,7 +354,7 @@ module hette_test() {
 
 // Fire varianter: [hull, ribbetupper, etikett]. Velg den som sitter best og sett
 // led_hull / led_ribbe_d til de verdiene. Kragen ligger i forsenkningen på undersiden.
-led_test_varianter = [[10.0, 0, "10.0"], [10.1, 0, "10.1"], [10.4, 10.0, "R10.0"], [10.4, 9.8, "R9.8"]];
+led_test_varianter = [[9.8, 0, "9.8"], [9.9, 0, "9.9"], [10.0, 0, "10.0"]];
 
 module led_test() {
     n = len(led_test_varianter);
