@@ -29,7 +29,7 @@ En boks med fire knapper for timeføring. Trykk på en knapp for å starte tiden
 |---|---|
 | ESP32-C3 SuperMini | 1 |
 | Momentan trykknapp, 7 mm hull (PBS-110-typen) | 4 |
-| LED på 5 mm (gjerne fire farger) | 4 |
+| LED på 10 mm (gjerne fire farger) | 4 |
 | Motstand på 220 Ω (bruk 68–100 Ω til blå eller hvite LED-er) | 4 |
 | Lite stykke stripboard, tynn ledning, krympestrømpe | |
 | USB-C-kabel og en vanlig USB-lader | 1 |

@@ -6,7 +6,7 @@
 
 ## 1. Hva boksen er
 
-En liten bordboks med **fire trykknapper** på rad. Over hver knapp sitter en **5 mm LED**. Inni ligger en **ESP32-C3 SuperMini**, og strømmen kommer via USB-C bak. Brukeren trykker på knappene mange ganger om dagen, så boksen må stå stødig og ikke gli.
+En liten bordboks med **fire trykknapper** på rad. Over hver knapp sitter en **10 mm LED**. Inni ligger en **ESP32-C3 SuperMini**, og strømmen kommer via USB-C bak. Brukeren trykker på knappene mange ganger om dagen, så boksen må stå stødig og ikke gli.
 
 ## 2. Hovedform
 
@@ -45,14 +45,18 @@ En liten bordboks med **fire trykknapper** på rad. Over hver knapp sitter en **
 - Lag en **flat, sirkulær forsenkning på Ø 12 × 0,6 mm** på innsiden rundt hvert hull, slik at mutteren ligger plant.
 - Fri høyde: under hver knapp må det være **minst 22 mm** fra undersiden av lokket til innsiden av bunnen, målt loddrett. Kontroller dette for den fremste knappen, der boksen er lavest.
 
-### 3.2 LED 5 mm ×4
+### 3.2 LED 10 mm ×4
 | Mål | Verdi |
 |---|---|
-| Hull | **Ø 5,1** (presspasning, LED-en trykkes inn fra innsiden) |
-| Krage | Ø 5,8 og ca. 1 mm. Stopper mot innsiden. |
-| Lengde under panelet | ca. 9 mm + bein |
+| Kropp | Ø 10,0 |
+| Krage | **Ø 11,0** (bredeste punkt), ca. 1,5 mm tykk **(mål selv)** |
+| Hull | **Ø 10,2** (presspasning, LED-en trykkes inn fra innsiden) |
+| Lengde under panelet | ca. 14 mm + bein **(mål selv)** |
 
-- Lag en **Ø 6,4 × 1,0 mm forsenkning på innsiden** rundt LED-hullet, slik at kragen ligger an.
+- LED-en trykkes inn fra innsiden. Kroppen stikker opp gjennom panelet, og kragen på Ø 11 stopper mot innsiden.
+- Lag en **Ø 11,6 × 1,0 mm forsenkning på innsiden** rundt LED-hullet, slik at kragen ligger plant og LED-en stikker litt lenger ut.
+- Parametre: `led_hull = 10.2`, `led_krage = 11.0`, `led_krage_klaring = 0.6`. LED-en skal sitte stramt. Er hullet for trangt, øker brukeren `led_hull` med 0,1 mm og printer en ny test.
+- Valgfritt: en **testbit** (`del = "led_test"`), en liten plate på 30 × 15 × 2,4 mm med tre hull på Ø 10,0, 10,2 og 10,4, så brukeren kan finne riktig passform før hele lokket printes.
 
 ### 3.3 ESP32-C3 SuperMini ×1
 | Mål | Verdi |
@@ -78,7 +82,7 @@ Sett fra brukerens side, der fronten er nærmest:
 ```
   bak (høy)
  ┌───────────────────────────────────────────┐
- │     ●          ●          ●          ●     │  ← LED-er (Ø 5,1)
+ │     ●          ●          ●          ●     │  ← LED-er (Ø 10,2)
  │                                            │
  │    (◯)        (◯)        (◯)        (◯)    │  ← knapper (Ø 7,2)
  │    [  1 ]     [  2 ]     [  3 ]     [  4 ] │  ← etikettfelt + nummer
@@ -90,11 +94,12 @@ Sett fra brukerens side, der fronten er nærmest:
 |---|---|
 | `knapp_avstand` | 24 (senter til senter) |
 | Knapperaden | Sentrert i bredden, ca. 55 % av panelets lengde fra fronten |
-| `led_avstand` | 14 bakover fra senter av hver knapp |
+| `led_avstand` | 17 bakover fra senter av hver knapp. Det gir ca. 5 mm mellom mutteren (Ø 11) og LED-kragen (Ø 11,6). |
 | Etikettfelt | 20 × 9, forsenket 0,4 mm, 9 mm foran senter av hver knapp. Her limer brukeren en lapp med prosjektnavnet. |
 | Nummer | «1» til «4», gravert 0,6 mm i nedre høyre hjørne av hvert etikettfelt, skrift 4 mm |
 
-- Ingen hull eller skruestolper må komme i konflikt med knappenes hus, muttere eller LED-er. Ta med klaring for mutteren: Ø 11.
+- Ingen hull eller skruestolper må komme i konflikt med knappenes hus, muttere eller LED-er. Ta med klaring for mutteren (Ø 11) og LED-kragen (Ø 11,6).
+- Med `knapp_avstand` 24 og LED-krage på Ø 11,6 er det ca. 12 mm mellom LED-ene. Det er nok.
 - Lokket ligger **innfelt** i en 1 mm kant (falsen) øverst i kassa, eller med en innvendig leppe på 1,5 mm som griper ned i kassa. Det hindrer at lokket forskyver seg.
 
 ## 5. Kassa
@@ -132,7 +137,7 @@ Sett fra brukerens side, der fronten er nærmest:
 
 - [ ] Det er **≥ 22 mm** fri høyde under hver knapp, også den fremste.
 - [ ] Lokket er **≤ 3,0 mm** tykt der knappene sitter.
-- [ ] Det er ingen kollisjon mellom knapper, muttere (Ø 11), LED-er, skruestolper og ESP-holderen. Kontroller med dummy-komponenter i `samlet()`.
+- [ ] Det er ingen kollisjon mellom knapper, muttere (Ø 11), LED-er (krage Ø 11,6, ca. 14 mm lange under panelet), skruestolper og ESP-holderen. Kontroller med dummy-komponenter i `samlet()`.
 - [ ] USB-C-hullet ligger midt på kontakten, og kortkanten ligger inntil veggen.
 - [ ] Antennen på ESP-en er ≥ 10 mm fra knappehusene.
 - [ ] Ingen overheng over 45° i printretningen, så det trengs ingen støtte.
