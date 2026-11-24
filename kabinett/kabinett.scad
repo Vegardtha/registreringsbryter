@@ -61,8 +61,8 @@ led_hull          = 10.4; // hullet før ribbene
 led_ribbe_d       = 9.9;  // avstand mellom ribbetuppene; ribbene klemmer og sentrerer LED-en. 0 = ingen ribber
 led_ribber        = 6;
 led_krage         = 11.0; // kragen på det bredeste (mål selv)
-led_krage_flat    = 10.0; // kragen målt fra den flate siden og over (mål selv). Sett lik led_krage hvis kragen er rund
-led_flat_retning  = 90;   // retning på den flate siden (minus/katode): 90 = bakover
+led_krage_flat    = 10.0; // kragen målt mellom de to flate sidene (mål selv). Sett lik led_krage hvis kragen er helt rund
+led_flat_retning  = 0;    // 0 = flate sider mot venstre og høyre, 90 = mot front og bak
 led_krage_klaring = 0.4;
 led_krage_dybde   = 1.0;  // forsenkning på undersiden som kragen ligger i
 led_krage_tykk    = 1.5;  // (mål selv)
@@ -265,13 +265,14 @@ module led_hull_form(hull_d, ribbe_d, h) {
     }
 }
 
-// Forsenkning for LED-kragen, med den flate siden, så LED-en ikke kan vris og minus alltid peker samme vei.
+// Forsenkning for LED-kragen. Kragen har to motstående flate sider, så forsenkningen
+// er rund med to flate sider. Da ligger kragen plant og LED-en kan ikke vris.
 module krage_form() {
     r = (led_krage + led_krage_klaring) / 2;
-    f = max(led_krage_flat - led_krage / 2, led_kropp / 2) + led_krage_klaring / 2;
+    f = max(led_krage_flat, led_kropp) / 2 + led_krage_klaring / 2;  // avstand fra senter til hver flate side
     rotate(led_flat_retning) intersection() {
         circle(r = r);
-        translate([-r - 1, -r - 1]) square([r + 1 + f, 2 * r + 2]);
+        square([2 * f, 2 * r + 2], center = true);
     }
 }
 

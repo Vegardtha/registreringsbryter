@@ -95,9 +95,9 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 
 - LED-en trykkes inn fra innsiden. Kroppen stikker opp gjennom panelet, og kragen på Ø 11 stopper mot innsiden. Over panelet stikker LED-en ca. 11 mm opp. Under panelet er det bare beina.
 - Lag en **Ø 11,6 × 1,0 mm forsenkning på innsiden** rundt LED-hullet, slik at kragen ligger plant og LED-en stikker litt lenger ut.
-- **Forsenkningen for kragen er D-formet**, med en flat side som passer den flate siden på kragen (`led_krage_flat`). Da kan ikke LED-en vris, og minus (katode, den flate siden) peker alltid bakover (`led_flat_retning = 90`).
+- **Kragen har to motstående flate sider** og er rund ellers. Den er Ø 11,0 på det bredeste og 10,0 mellom de flate sidene. Forsenkningen har samme form (`led_krage_flat`), så kragen ligger plant og LED-en ikke kan vris. De flate sidene peker mot venstre og høyre (`led_flat_retning = 0`).
 - Parametre: `led_hull = 10.4`, `led_ribbe_d = 9.9`, `led_ribber = 6`, `led_krage = 11.0`, `led_krage_flat = 10.0`, `led_krage_klaring = 0.4`. Sett `led_ribbe_d = 0` for et vanlig rundt hull.
-- **Testbit** (`del = "led_test"`): en plate med fire varianter: rundt hull på 10,0 og 10,1, og ribbehull med ribbetupper på 10,0 og 9,8 (merket R10.0 og R9.8). Alle har D-formet forsenkning for kragen på undersiden. Første test viste at et rundt hull på 10,0 var nærmest, men ikke helt riktig.
+- **Testbit** (`del = "led_test"`): en plate med fire varianter: rundt hull på 10,0 og 10,1, og ribbehull med ribbetupper på 10,0 og 9,8 (merket R10.0 og R9.8). Alle har forsenkning for kragen på undersiden, med to flate sider. Første test viste at et rundt hull på 10,0 var nærmest, men ikke helt riktig.
 
 ### 3.4 ESP32-C3 SuperMini ×1
 | Mål | Verdi |
