@@ -177,7 +177,10 @@ Alle avstander er målt langs panelet fra frontkanten, til senter av elementet.
 
 ## 7. Printinnstillinger (skriv dem inn i kommentar øverst i .scad-fila)
 
-- PLA eller PETG, 0,2 mm lag, 3 perimetre, 15 % fyll, **ingen støtte**
+- **PLA** for alle delene: 0,2 mm lag, 3 perimetre, 15 % fyll, **ingen støtte**
+- Ca. 210 °C dyse, 60 °C plate og full kjølevifte (vanlige PLA-innstillinger)
+- PLA er stivt og gir lite etter, så presspasningene (`hylse_klem`, `led_hull`) bør testes med testbitene før alt printes
+- Ikke la boksen stå i direkte sol eller i en varm bil. PLA blir mykt rundt 55 °C.
 - `kasse`: bunnen ned. `lokk`: toppen opp. `hette`: toppen ned.
 - Hettene kan gjerne printes i samme farge som LED-en over dem.
 - **Rekkefølge:** print `hette_test` og en hette først. Når passform og klikk er riktig, printer du lokket og så kassa.

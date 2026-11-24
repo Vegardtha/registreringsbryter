@@ -4,7 +4,8 @@
 //
 // Velg hva som vises/eksporteres med `del` (eller Customizer-panelet i OpenSCAD).
 //
-// Printinnstillinger: PLA eller PETG, 0,2 mm lag, 3 perimetre, 15 % fyll, ingen støtte.
+// Printinnstillinger: PLA, 0,2 mm lag, 3 perimetre, 15 % fyll, ingen støtte.
+//   Ca. 210 °C dyse, 60 °C plate, full kjølevifte.
 //   kasse : bunnen ned
 //   lokk  : toppen OPP (føringsringene står opp). Skru gjerne på «ironing» for pen topp.
 //   hette : toppen ned (4 stk.)
