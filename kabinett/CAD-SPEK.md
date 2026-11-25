@@ -41,7 +41,7 @@ En liten bordboks med **fire store knapper** på rad. Hver knapp er en **3D-prin
 | Montering | Huset sitter **under** panelet. Gjengen går opp gjennom hullet, og **mutteren skrus på fra oversiden**. |
 | Mutter | 10 mm over flatene (ca. Ø 11,5 over hjørnene), ca. 2 mm tykk **(mål selv)** |
 | Hus under panelet | Ø 9–10, lengde ca. 13 + 5 mm loddebein = **ca. 20 mm** fri høyde under panelet **(mål selv)** |
-| Original knapphette (blå) | **Ø 6,9** (målt). Toppen står ca. **9 mm over panelet** **(mål selv)**. |
+| Original knapphette (blå) | **Ø 5,8–5,9** (målt). Toppen står ca. **9 mm over panelet** **(mål selv)**. |
 | Vandring | Ca. **2 mm** fra hvile til klikk **(mål selv)** |
 | Gjengelengde | ca. 7 mm. Panelet må være ≤ 3 mm, fordi mutteren også skal ha plass. |
 
@@ -68,7 +68,7 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 | `hette_topp` | 2.4 | Tykkelse på toppen |
 | `hette_grop` | 0 | Sfærisk fingergrop i toppen. Står på 0 (flat), fordi hetten printes med toppen ned og en grop da ville henge i lufta. |
 | `hette_vegg` | 1.6 | Skjørtets veggtykkelse |
-| `hylse_indre` | 7.0 | Den blå hetten er målt til 6,9 mm. Hylsa er `blaa_hette_d + hylse_tillegg` = 6,9 + 0,1. |
+| `hylse_indre` | 6.2 | Testet: 6,2 mm sitter perfekt (6,0 og 6,1 var for trange). Hylsa er `blaa_hette_d + hylse_tillegg` = 5,9 + 0,3. |
 | `hylse_vegg` | 1.6 | |
 | `hylse_dybde` | 4.0 | Hvor langt hylsa tres ned over den blå hetten |
 | `vandring` | 2.0 | **(mål selv)** |
