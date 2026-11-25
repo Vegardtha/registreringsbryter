@@ -32,7 +32,7 @@ stolpe_d          = 7;
 
 /* [Trykknapp – MÅL SELV] */
 knapp_hull        = 7.2;  // M7-gjenge (testet: passer)
-blaa_hette_d      = 6.9;  // diameter på den blå knapphetten (målt: 6,9)
+blaa_hette_d      = 5.9;  // diameter på den blå knapphetten (målt: 5,8–5,9)
 blaa_hette_hoyde  = 9.0;  // toppen av blå hette over panelet, med mutter på (mål selv)
 vandring          = 2.0;  // hvor langt knappen går før den klikker (mål selv)
 mutter_topp       = 2.5;  // toppen av mutter (+ evt. skive) over panelet (mål selv)
@@ -48,7 +48,7 @@ hette_fas   = 0.6;
 hette_grop  = 0;    // fingergrop i mm. 0 = flat (best når hetten printes med toppen ned)
 hylse_vegg  = 1.6;
 hylse_dybde = 3.5;  // hvor langt hylsa tres ned over den blå hetten
-hylse_tillegg = 0.0; // hylsa er så mye større enn den blå hetten. Øk hvis hetten ikke går på, senk hvis den sitter løst (7,0 satt løst)
+hylse_tillegg = 0.1; // hylsa er så mye større enn den blå hetten. Øk hvis hetten ikke går på, senk hvis den sitter løst
 
 /* [Føringsring] */
 foring_hoyde   = 6.5;
@@ -115,7 +115,7 @@ usb_z        = bunn_tykkelse + esp_avstand + esp_pcb + usb_over_pcb;
 hette_topp_under = blaa_hette_hoyde;             // hetten hviler på den blå hetten
 hette_toppflate  = hette_topp_under + hette_topp;
 skjort_bunn      = vandring + 1;
-hylse_indre      = blaa_hette_d + hylse_tillegg;   // 6,9 + 0 = 6,9 mm
+hylse_indre      = blaa_hette_d + hylse_tillegg;   // 5,9 + 0,1 = 6,0 mm
 
 vektlomme_pos = [bredde / 2 - 20, vegg + 3];     // 40 × 30, foran på midten
 vektlomme_mal = [40, 30, 6];
@@ -347,7 +347,7 @@ module hette_print(indre = hylse_indre, merke = "") {
 }
 
 // Hylsevarianter for å finne presspasningen: [hylse innvendig, merke]
-hette_varianter = [[6.9, "6.9"], [6.8, "6.8"]];
+hette_varianter = [[6.0, "6.0"], [6.1, "6.1"], [6.2, "6.2"]];
 
 module hette_varianter_print() {
     for (i = [0:len(hette_varianter) - 1])
