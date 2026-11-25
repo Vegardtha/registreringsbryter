@@ -68,7 +68,7 @@ Hetten tres ned over den blå knapphetten og sitter fast med presspasning. En f�
 | `hette_topp` | 2.4 | Tykkelse på toppen |
 | `hette_grop` | 0 | Sfærisk fingergrop i toppen. Står på 0 (flat), fordi hetten printes med toppen ned og en grop da ville henge i lufta. |
 | `hette_vegg` | 1.6 | Skjørtets veggtykkelse |
-| `hylse_indre` | 6.2 | Testet: 6,2 mm sitter perfekt (6,0 og 6,1 var for trange). Hylsa er `blaa_hette_d + hylse_tillegg` = 5,9 + 0,3. |
+| `hylse_indre` | 6.2 | Testet mot 6,0 og 6,1: 6,2 mm sitter perfekt. Hylsa er `blaa_hette_d + hylse_tillegg` = 5,9 + 0,3. |
 | `hylse_vegg` | 1.6 | |
 | `hylse_dybde` | 4.0 | Hvor langt hylsa tres ned over den blå hetten |
 | `vandring` | 2.0 | **(mål selv)** |
