@@ -13,7 +13,7 @@
 // =============================================================================
 
 /* [Hva som vises] */
-del = "samlet"; // ["samlet", "kasse", "lokk", "hette", "print", "hette_test", "led_test"]
+del = "samlet"; // ["samlet", "kasse", "lokk", "hette", "hette_varianter", "print", "hette_test", "led_test"]
 
 /* [Boks] */
 bredde        = 140;  // ytre bredde (venstre–høyre)
@@ -48,7 +48,7 @@ hette_fas   = 0.6;
 hette_grop  = 0;    // fingergrop i mm. 0 = flat (best når hetten printes med toppen ned)
 hylse_vegg  = 1.6;
 hylse_dybde = 3.5;  // hvor langt hylsa tres ned over den blå hetten
-hylse_tillegg = 0.1; // hylsa er så mye større enn den blå hetten. Øk hvis hetten ikke går på, senk hvis den sitter løst
+hylse_tillegg = 0.0; // hylsa er så mye større enn den blå hetten. Øk hvis hetten ikke går på, senk hvis den sitter løst (7,0 satt løst)
 
 /* [Føringsring] */
 foring_hoyde   = 6.5;
@@ -115,7 +115,7 @@ usb_z        = bunn_tykkelse + esp_avstand + esp_pcb + usb_over_pcb;
 hette_topp_under = blaa_hette_hoyde;             // hetten hviler på den blå hetten
 hette_toppflate  = hette_topp_under + hette_topp;
 skjort_bunn      = vandring + 1;
-hylse_indre      = blaa_hette_d + hylse_tillegg;   // 6,9 + 0,1 = 7,0 mm
+hylse_indre      = blaa_hette_d + hylse_tillegg;   // 6,9 + 0 = 6,9 mm
 
 vektlomme_pos = [bredde / 2 - 20, vegg + 3];     // 40 × 30, foran på midten
 vektlomme_mal = [40, 30, 6];
@@ -312,7 +312,7 @@ module lokk_flat() {
 // -----------------------------------------------------------------------------
 // Hetten (i hvilestilling: z = 0 er panelets toppflate)
 // -----------------------------------------------------------------------------
-module hette() {
+module hette(indre = hylse_indre, merke = "") {
     difference() {
         union() {
             difference() {
@@ -328,7 +328,12 @@ module hette() {
             translate([0, 0, hette_topp_under - hylse_dybde])
                 cylinder(d = hylse_indre + 2 * hylse_vegg, h = hylse_dybde + eps);
         }
-        translate([0, 0, hette_topp_under - hylse_dybde - eps]) cylinder(d = hylse_indre, h = hylse_dybde + eps);
+        translate([0, 0, hette_topp_under - hylse_dybde - eps]) cylinder(d = indre, h = hylse_dybde + eps);
+        // Merke inne i hetten (mellom hylsa og skjørtet), så variantene kan skilles
+        if (merke != "")
+            translate([0, -(indre / 2 + hylse_vegg + hette_d / 2 - hette_vegg) / 2, hette_topp_under - eps])
+                mirror([0, 1, 0]) linear_extrude(0.5 + eps)
+                    text(merke, size = 2.6, halign = "center", valign = "center", font = "Liberation Sans:style=Bold");
         if (hette_grop > 0) {
             r = (hette_d - 2 * hette_vegg) / 2;
             R = (r * r + hette_grop * hette_grop) / (2 * hette_grop);
@@ -337,7 +342,17 @@ module hette() {
     }
 }
 
-module hette_print() { translate([0, 0, hette_toppflate]) rotate([180, 0, 0]) hette(); }
+module hette_print(indre = hylse_indre, merke = "") {
+    translate([0, 0, hette_toppflate]) rotate([180, 0, 0]) hette(indre, merke);
+}
+
+// Hylsevarianter for å finne presspasningen: [hylse innvendig, merke]
+hette_varianter = [[6.9, "6.9"], [6.8, "6.8"]];
+
+module hette_varianter_print() {
+    for (i = [0:len(hette_varianter) - 1])
+        translate([i * (hette_d + 6), 0, 0]) hette_print(hette_varianter[i][0], hette_varianter[i][1]);
+}
 
 // -----------------------------------------------------------------------------
 // Testbiter
@@ -416,6 +431,7 @@ if (del == "samlet")          samlet();
 else if (del == "kasse")      kasse();
 else if (del == "lokk")       lokk_flat();
 else if (del == "hette")      hette_print();
+else if (del == "hette_varianter") hette_varianter_print();
 else if (del == "print")      print_plate();
 else if (del == "hette_test") hette_test();
 else if (del == "led_test")   led_test();
